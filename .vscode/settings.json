@@ -1,7 +1,7 @@
 {
-    "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar"
-    ]
+    "java.project.sourcePaths": [
+        "mod5/src"
+    ],
+    "java.project.outputPath": "mod5/bin",
+    "java.project.referencedLibraries": []
 }
