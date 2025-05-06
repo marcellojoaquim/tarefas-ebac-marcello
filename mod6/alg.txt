@@ -1,0 +1,25 @@
+INÍCIO
+1- Abrir o olho
+2 - Verificar despertador
+  2.1 - Se estiver tocando
+    - Desligar despertador
+  2.2 - Se não estiver tocando
+    - não faça nada
+3 - Levante da cama
+4 - Vá ao banheiro
+5 - Escove os dentes, tome banho
+6 - Vá para cozinha
+  6.1 - Verificar se há pão
+    6.1.1 Se não Houver
+      - Vá à padaria para comprar
+    6.1.1 Se Houver
+      - Pegue o pão
+  6.2 - Verificar se há café
+    6.1.1 Se não Houver
+      - Vá ao mercado para comprar
+    6.1.1 Se Houver
+      - Pegue o café
+      - Prepare o café
+7 - Coma o pão com o café
+8 - Lave a louça
+FIM
