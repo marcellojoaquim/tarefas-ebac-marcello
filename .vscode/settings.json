@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "mod5/src"
+        "mod5/src",
+        "mod7/tarefas_classes"
     ],
     "java.project.outputPath": "mod5/bin",
     "java.project.referencedLibraries": []
