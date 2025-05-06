@@ -1,9 +1,10 @@
 {
     "java.project.sourcePaths": [
+        "mod9/tarefa_cast_wrappers/src",
         "mod8/tarefa_caculo_mat/src",
         "mod7/tarefas_classes",
         "mod5/src",
-        "mod9/tarefa_cast_wrappers/src"
+        "mod10/tarefa_caculo_mat/src"
     ],
     "java.project.outputPath": "mod5/bin",
     "java.project.referencedLibraries": []
