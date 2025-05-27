@@ -1,0 +1,11 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "test"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "/home/marcello/cursos/EBAC/codigos/primeiro-proj-java/JavaProject/junit-project/projectJUnit/lib/junit-4.13.2.jar",
+        "/home/marcello/cursos/EBAC/codigos/primeiro-proj-java/JavaProject/junit-project/projectJUnit/lib/hamcrest-core-1.3.jar"
+    ]
+}
