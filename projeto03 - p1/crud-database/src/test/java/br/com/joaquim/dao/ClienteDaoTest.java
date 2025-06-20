@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -93,18 +92,20 @@ public class ClienteDaoTest {
         assertNotNull(clienteList);
 
         for(Cliente c: clienteList){
+            System.out.println("Tentando excluir produto com Código: " + c.getCodigo());
             dao.excluir(c);
         }
     }
 
     @Test
     public void closeConnectionTeste() throws SQLException {
-        ResultSet resultSet;
         Connection conn = null;
         PreparedStatement statement = null;
         IClienteDao dao = new ClienteDao();
         try {
             conn = ConnectionFactory.getConnection();
+            String sql = "SELECT id FROM tb_cliente WHERE id = 1";
+            statement = conn.prepareStatement(sql);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
@@ -112,5 +113,6 @@ public class ClienteDaoTest {
         }
 
         assertTrue(conn.isClosed());
+        assertTrue(statement.isClosed());
     }
 }
