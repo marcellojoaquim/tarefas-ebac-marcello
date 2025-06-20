@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ClienteDao implements IClienteDao {
 
@@ -87,6 +88,33 @@ public class ClienteDao implements IClienteDao {
         }
     }
 
+    @Override
+    public Integer atualizar(Cliente cliente) throws SQLException {
+        Connection conn = null;
+        PreparedStatement statement = null;
+        try {
+            conn = ConnectionFactory.getConnection();
+            String sql = getSqlUpdate();
+            statement = conn.prepareStatement(sql);
+            adicionaParametrosUpdate(statement, cliente);
+            return statement.executeUpdate();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }finally {
+            if(statement != null && !statement.isClosed()) {
+                statement.close();
+            }
+            if(conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        }
+    }
+
+    @Override
+    public List<Cliente> buscarTodos() throws SQLException {
+        return List.of();
+    }
+
     private String getSqlConsulta() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("SELECT id, nome, codigo FROM tb_cliente ");
@@ -114,15 +142,15 @@ public class ClienteDao implements IClienteDao {
     private String getSqlUpdate() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE tb_cliente ");
-        stringBuilder.append("SET nome = ?, codigo = ?");
+        stringBuilder.append("SET codigo = ?, nome = ? ");
         stringBuilder.append("WHERE id = ?");
         return stringBuilder.toString();
     }
 
     private void adicionaParametrosUpdate(PreparedStatement preparedStatement, Cliente cliente) throws SQLException {
-        preparedStatement.setString(1, cliente.getNome());
-        preparedStatement.setString(2, cliente.getCodigo());
-        preparedStatement.setString(3, cliente.getId().toString());
+        preparedStatement.setString(1, cliente.getCodigo());
+        preparedStatement.setString(2, cliente.getNome());
+        preparedStatement.setLong(3, cliente.getId());
     }
 
     private String getSqlExcluir() {

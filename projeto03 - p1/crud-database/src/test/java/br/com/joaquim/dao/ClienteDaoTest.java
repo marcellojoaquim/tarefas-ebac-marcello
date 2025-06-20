@@ -47,6 +47,26 @@ public class ClienteDaoTest {
 
         assertNotNull(result);
         assertTrue(result > 0);
+    }
 
+    @Test
+    public void updateClienteTeste() throws SQLException {
+        IClienteDao dao = new ClienteDao();
+        Cliente cliente = new Cliente();
+        cliente.setCodigo("01");
+        cliente.setNome("Cliente 01");
+        dao.cadastrar(cliente);
+
+        Cliente savedClient = dao.consultar(cliente.getCodigo());
+
+        savedClient.setNome("Novo nome");
+        Integer result = dao.atualizar(savedClient);
+
+        assertTrue(result != 0);
+
+        Cliente updatedClient = dao.consultar(cliente.getCodigo());
+
+        assertEquals("Novo nome", updatedClient.getNome());
+        dao.excluir(updatedClient);
     }
 }
