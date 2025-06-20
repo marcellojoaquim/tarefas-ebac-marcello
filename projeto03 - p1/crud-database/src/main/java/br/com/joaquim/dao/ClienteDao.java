@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClienteDao implements IClienteDao {
@@ -112,7 +113,29 @@ public class ClienteDao implements IClienteDao {
 
     @Override
     public List<Cliente> buscarTodos() throws SQLException {
-        return List.of();
+        ResultSet resultSet;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        List<Cliente> list = new ArrayList<>();
+        try {
+            conn = ConnectionFactory.getConnection();
+            String sql = getSqlBuscarTodos();
+            statement = conn.prepareStatement(sql);
+
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setId(resultSet.getLong("id"));
+                cliente.setNome(resultSet.getString("nome"));
+                cliente.setCodigo(resultSet.getString("codigo"));
+                list.add(cliente);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeConnection(statement, conn);
+        }
+        return list;
     }
 
     private String getSqlConsulta() {
@@ -153,6 +176,13 @@ public class ClienteDao implements IClienteDao {
         preparedStatement.setLong(3, cliente.getId());
     }
 
+    private String getSqlBuscarTodos() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT id, nome, codigo ");
+        stringBuilder.append("FROM tb_cliente");
+        return stringBuilder.toString();
+    }
+
     private String getSqlExcluir() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("DELETE FROM tb_cliente ");
@@ -162,5 +192,14 @@ public class ClienteDao implements IClienteDao {
 
     private void adicionaParametrosExcluir(PreparedStatement preparedStatement, Cliente cliente) throws SQLException {
         preparedStatement.setString(1, cliente.getCodigo());
+    }
+
+    public void closeConnection(PreparedStatement statement, Connection connection) throws SQLException {
+        if(statement != null && !statement.isClosed()) {
+            statement.close();
+        }
+        if(connection != null && !connection.isClosed()) {
+            connection.close();
+        }
     }
 }

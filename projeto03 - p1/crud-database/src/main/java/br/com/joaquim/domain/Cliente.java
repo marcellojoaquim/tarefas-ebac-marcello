@@ -6,6 +6,13 @@ public class Cliente {
     private String codigo;
     private String nome;
 
+    public Cliente() {}
+
+    public Cliente(Long codigo, String nome) {
+        this.codigo = codigo.toString();
+        this.nome = nome;
+    }
+
     public Long getId() {
         return id;
     }

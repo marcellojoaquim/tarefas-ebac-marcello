@@ -1,10 +1,16 @@
 package br.com.joaquim.dao;
 
+import br.com.joaquim.dao.jdbc.ConnectionFactory;
 import br.com.joaquim.domain.Cliente;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClienteDaoTest {
 
@@ -68,5 +74,43 @@ public class ClienteDaoTest {
 
         assertEquals("Novo nome", updatedClient.getNome());
         dao.excluir(updatedClient);
+    }
+
+    @Test
+    public void buscarTodosTeste() throws SQLException {
+        IClienteDao dao = new ClienteDao();
+        Cliente cliente1 = new Cliente(1L, "cliente 1");
+        Cliente cliente2 = new Cliente(2L, "cleinte 2");
+        Cliente cliente3 = new Cliente(3L, "cliente 3");
+        dao.cadastrar(cliente1);
+        dao.cadastrar(cliente2);
+        dao.cadastrar(cliente3);
+
+        List<Cliente> clienteList = new ArrayList<>();
+        clienteList = dao.buscarTodos();
+
+        assertEquals(3, clienteList.size());
+        assertNotNull(clienteList);
+
+        for(Cliente c: clienteList){
+            dao.excluir(c);
+        }
+    }
+
+    @Test
+    public void closeConnectionTeste() throws SQLException {
+        ResultSet resultSet;
+        Connection conn = null;
+        PreparedStatement statement = null;
+        IClienteDao dao = new ClienteDao();
+        try {
+            conn = ConnectionFactory.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            ((ClienteDao) dao).closeConnection(statement, conn);
+        }
+
+        assertTrue(conn.isClosed());
     }
 }
