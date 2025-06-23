@@ -21,7 +21,7 @@ public class VendaDAO extends GenericDAO<Venda, String> implements IVendasDAO {
     }
 
     @Override
-    public void atualiarDados(Venda entity, Venda entityCadastrado) {
+    public void atualizarDados(Venda entity, Venda entityCadastrado) {
         entityCadastrado.setCodigo(entity.getCodigo());
         entityCadastrado.setStatus(entity.getStatus());
     }

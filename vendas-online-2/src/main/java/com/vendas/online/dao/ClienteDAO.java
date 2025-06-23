@@ -18,7 +18,7 @@ public class ClienteDAO extends GenericDAO<Cliente, Long> implements IClienteDAO
     }
 
     @Override
-    public void atualiarDados(Cliente entity, Cliente entityCadastrado) {
+    public void atualizarDados(Cliente entity, Cliente entityCadastrado) {
         entityCadastrado.setCidade(entity.getCidade());
         entityCadastrado.setCpf(entity.getCpf());
         entityCadastrado.setEnd(entity.getEnd());
