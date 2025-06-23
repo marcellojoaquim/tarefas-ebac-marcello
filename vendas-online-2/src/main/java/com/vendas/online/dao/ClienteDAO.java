@@ -67,7 +67,7 @@ public class ClienteDAO extends GenericDAO<Cliente, Long> implements IClienteDAO
         StringBuilder sb = new StringBuilder();
         sb.append("UPDATE TB_CLIENTE ");
         sb.append("SET NOME = ?,");
-        sb.append("SET SOBRENOME = ?");
+        sb.append("SOBRENOME = ?,");
         sb.append("TEL = ?,");
         sb.append("ENDERECO = ?,");
         sb.append("NUMERO = ?,");
