@@ -19,6 +19,7 @@ public class ClienteDAOTest {
         Cliente cliente = new Cliente();
         cliente.setCpf(12345678900L);
         cliente.setNome("Cliente 01");
+        cliente.setSobreNome("Sobrenome 01");
         cliente.setEnd("Endereco");
         cliente.setNumero(128);
         cliente.setCidade("Recife");
@@ -124,5 +125,4 @@ public class ClienteDAOTest {
             }
         });
     }
-
 }
