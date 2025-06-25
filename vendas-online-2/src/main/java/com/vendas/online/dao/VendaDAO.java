@@ -3,6 +3,8 @@ package com.vendas.online.dao;
 import com.vendas.online.dao.factory.ProdutoQuantidadeFactory;
 import com.vendas.online.dao.factory.VendaFactory;
 import com.vendas.online.dao.generic.GenericDAO;
+import com.vendas.online.domain.Estoque;
+import com.vendas.online.domain.Produto;
 import com.vendas.online.domain.ProdutoQuantidade;
 import com.vendas.online.domain.Venda;
 import com.vendas.online.exceptions.DAOException;
@@ -214,6 +216,8 @@ public class VendaDAO extends GenericDAO<Venda, String> implements IVendasDAO {
     public Boolean cadastrar(Venda entity) throws TipoChaveNaoEncontradaException, DAOException {
         Connection connection = null;
         PreparedStatement stm = null;
+        EstoqueDAO dao = new EstoqueDAO();
+        Estoque estoque = new Estoque();
         try {
             connection = getConnection();
             stm = connection.prepareStatement(getQueryInsercao(), Statement.RETURN_GENERATED_KEYS);
@@ -231,6 +235,16 @@ public class VendaDAO extends GenericDAO<Venda, String> implements IVendasDAO {
                     stm = connection.prepareStatement(getQueryInsercaoProdQuant());
                     setParametrosQueryInsercaoProdQuant(stm, entity, prod);
                     rowsAffected = stm.executeUpdate();
+                }
+
+                for (ProdutoQuantidade p: entity.getProdutos()) {
+                    try {
+                        estoque = dao.consultar(p.getProduto().getCodigo());
+                        int qtd = estoque.getQuantidade();
+                        estoque.setQuantidade(qtd - p.getQuantidade());
+                    } catch (MaisDeUmRegistroException | TableException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
 
 

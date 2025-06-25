@@ -15,6 +15,7 @@ public class ProdutoDAOTest {
 
     @Test
     public void cadastrar() throws DAOException, TipoChaveNaoEncontradaException {
+        EstoqueDAO estoqueDAO = new EstoqueDAO();
         ProdutoDAO dao = new ProdutoDAO();
         Produto produto = new Produto();
         produto.setNome("Produto 01");

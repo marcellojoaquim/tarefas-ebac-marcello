@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 
-public class EstoqueDAO extends GenericDAO<Estoque, Long> implements IEstoqueDAO {
+public class EstoqueDAO extends GenericDAO<Estoque, String> implements IEstoqueDAO {
 
     public EstoqueDAO() {
         super();
@@ -15,7 +15,7 @@ public class EstoqueDAO extends GenericDAO<Estoque, Long> implements IEstoqueDAO
 
     @Override
     public Class<Estoque> getTipoClasse() {
-        return null;
+        return Estoque.class;
     }
 
     @Override
@@ -33,15 +33,16 @@ public class EstoqueDAO extends GenericDAO<Estoque, Long> implements IEstoqueDAO
 
     @Override
     protected String getQueryExclusao() {
-        return "";
+        return "DELETE FROM tb_estoque WHERE codigo_produto = ?";
     }
 
     @Override
     protected String getQueryAtualizacao() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("UPDATE tb_estoque ");
-        stringBuilder.append("SET quantidade = ?");
-        stringBuilder.append("WHERE id = ?");
+        stringBuilder.append("SET quantidade = ?, ");
+        stringBuilder.append("codigo_produto = ? ");
+        stringBuilder.append("WHERE codigo_produto = ?");
         return stringBuilder.toString();
     }
 
@@ -52,17 +53,19 @@ public class EstoqueDAO extends GenericDAO<Estoque, Long> implements IEstoqueDAO
     }
 
     @Override
-    protected void setParametrosQueryExclusao(PreparedStatement stmDelete, Long valor) throws SQLException {
-
+    protected void setParametrosQueryExclusao(PreparedStatement stmDelete, String valor) throws SQLException {
+        stmDelete.setString(1, valor);
     }
 
     @Override
     protected void setParametrosQueryAtualizacao(PreparedStatement stmUpdate, Estoque entity) throws SQLException {
-
+        stmUpdate.setLong(1, entity.getQuantidade());
+        stmUpdate.setString(2, entity.getCodigoProduto());
+        stmUpdate.setString(3, entity.getCodigoProduto());
     }
 
     @Override
-    protected void setParametrosQuerySelect(PreparedStatement stmUpdate, Long valor) throws SQLException {
-
+    protected void setParametrosQuerySelect(PreparedStatement stmUpdate, String valor) throws SQLException {
+        stmUpdate.setString(1, valor);
     }
 }

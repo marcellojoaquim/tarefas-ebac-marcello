@@ -8,13 +8,13 @@ import com.vendas.online.dao.Persistente;
 @Tabela("tb_estoque")
 public class Estoque implements Persistente {
 
-    @TipoChave("getId")
     @ColunaTabela(dbName = "id", setJavaName = "setId")
     private Long id;
 
     @ColunaTabela(dbName = "quantidade", setJavaName = "setQuantidade")
     private Integer quantidade;
 
+    @TipoChave("getCodigoProduto")
     @ColunaTabela(dbName = "codigo_produto", setJavaName = "setCodigoProduto")
     private String codigoProduto;
 

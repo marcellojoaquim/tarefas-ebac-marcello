@@ -1,7 +1,10 @@
 package com.vendas.online.dao;
 
 import com.vendas.online.dao.generic.GenericDAO;
+import com.vendas.online.domain.Estoque;
 import com.vendas.online.domain.Produto;
+import com.vendas.online.exceptions.DAOException;
+import com.vendas.online.exceptions.TipoChaveNaoEncontradaException;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,6 +18,18 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
     @Override
     public Class<Produto> getTipoClasse() {
         return Produto.class;
+    }
+
+    @Override
+    public Boolean cadastrar(Produto entity) throws TipoChaveNaoEncontradaException, DAOException {
+        Boolean result = super.cadastrar(entity);
+
+        EstoqueDAO dao = new EstoqueDAO();
+        Estoque estoque = new Estoque();
+        estoque.setCodigoProduto(entity.getCodigo());
+        estoque.setQuantidade(128);
+        dao.cadastrar(estoque);
+        return result;
     }
 
     @Override
