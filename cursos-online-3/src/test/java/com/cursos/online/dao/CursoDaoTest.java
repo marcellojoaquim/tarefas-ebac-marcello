@@ -1,16 +1,14 @@
-package com.cursos.online.domain;
+package com.cursos.online.dao;
 
-
-import com.cursos.online.dao.CursoDao;
-import com.cursos.online.dao.ICursoDao;
+import com.cursos.online.domain.Curso;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CursoTest {
+public class CursoDaoTest {
 
     private ICursoDao cursoDao;
 
-    public CursoTest() {
+    public CursoDaoTest() {
         cursoDao = new CursoDao();
     }
     @Test

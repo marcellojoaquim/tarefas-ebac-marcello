@@ -1,6 +1,5 @@
 package com.cursos.online.domain;
 
-import com.sun.management.UnixOperatingSystemMXBean;
 import jakarta.persistence.*;
 
 @Entity
