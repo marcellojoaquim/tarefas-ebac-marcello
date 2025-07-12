@@ -2,7 +2,13 @@ package com.cursos.online.dao;
 
 import com.cursos.online.domain.Curso;
 
+import java.util.List;
+
 public interface ICursoDao {
 
-    public Curso cadastrar(Curso curso);
+    Curso cadastrar(Curso curso);
+    void delete(Curso curso);
+    Curso buscar(Long id);
+    List<Curso> buscarTodos();
+
 }

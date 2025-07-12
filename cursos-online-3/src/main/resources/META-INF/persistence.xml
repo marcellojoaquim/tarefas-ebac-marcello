@@ -8,6 +8,7 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <class>com.cursos.online.domain.Curso</class>
+        <class>com.cursos.online.domain.Matricula</class>
 
 
         <properties>
