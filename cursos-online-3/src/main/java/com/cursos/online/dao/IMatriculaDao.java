@@ -6,4 +6,5 @@ public interface IMatriculaDao {
 
     Matricula cadastrar(Matricula matricula);
     void delete(Matricula matricula);
+    //Matricula atualizar(Matricula matricula);
 }

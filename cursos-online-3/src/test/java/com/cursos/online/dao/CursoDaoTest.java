@@ -23,6 +23,7 @@ public class CursoDaoTest {
         curso = cursoDao.cadastrar(curso);
 
         Assert.assertNotNull(curso);
+        Assert.assertEquals("Curso tabela", curso.getNome());
 
         cursoDao.delete(curso);
     }
@@ -56,6 +57,7 @@ public class CursoDaoTest {
 
         Assert.assertNotNull(saved);
         Assert.assertEquals(curso.getCodigo(), saved.getCodigo());
+        Assert.assertEquals("Teste criacao tabela", saved.getDescricao());
 
         cursoDao.delete(curso);
     }
@@ -84,5 +86,31 @@ public class CursoDaoTest {
         list.forEach(c -> {
             cursoDao.delete(c);
         });
+    }
+
+    @Test
+    public void testAtualizar() {
+        Curso curso = new Curso();
+        curso.setCodigo("A1");
+        curso.setDescricao("Teste criacao tabela");
+        curso.setNome("Curso tabela");
+
+        cursoDao.cadastrar(curso);
+
+        Curso saved = cursoDao.buscar(curso.getId());
+        Assert.assertNotNull(saved);
+        Assert.assertEquals("Curso tabela", saved.getNome());
+
+        Curso curso2 = new Curso();
+        curso2.setCodigo("A2");
+        curso2.setDescricao("Teste criacao tabela 2");
+        curso2.setNome("Curso tabela 2");
+
+        Curso updated = cursoDao.atualizar(saved.getId(), curso2);
+
+        Assert.assertEquals(curso2.getNome(), updated.getNome());
+        Assert.assertEquals(curso2.getCodigo(), updated.getCodigo());
+
+        cursoDao.delete(updated);
     }
 }

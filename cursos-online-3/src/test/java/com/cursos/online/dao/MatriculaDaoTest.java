@@ -23,6 +23,8 @@ public class MatriculaDaoTest {
         matricula = matriculaDao.cadastrar(matricula);
 
         Assert.assertNotNull(matricula);
+
+        matriculaDao.delete(matricula);
     }
 
     @Test
@@ -33,6 +35,7 @@ public class MatriculaDaoTest {
         matricula.setStatus("ATIVA");
         matricula.setValor(2500d);
 
+        matriculaDao.cadastrar(matricula);
 
     }
 }

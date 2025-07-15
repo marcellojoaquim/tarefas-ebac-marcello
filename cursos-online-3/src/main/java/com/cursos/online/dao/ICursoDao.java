@@ -10,5 +10,6 @@ public interface ICursoDao {
     void delete(Curso curso);
     Curso buscar(Long id);
     List<Curso> buscarTodos();
+    Curso atualizar(Long id, Curso curso);
 
 }
