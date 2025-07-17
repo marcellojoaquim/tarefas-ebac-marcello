@@ -67,13 +67,15 @@ public class CursoDao implements ICursoDao{
     public List<Curso> buscarTodos() {
         String jpqlQuery = "SELECT c FROM Curso c";
 
-        EntityManager entityManager;
-        try (EntityManagerFactory entityManagerFactory = createEntityManagerFactory("cursos-online")) {
-            entityManager = entityManagerFactory.createEntityManager();
-        }
+        EntityManagerFactory entityManagerFactory =
+                createEntityManagerFactory("cursos-online");
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         entityManager.getTransaction().begin();
         Query query = entityManager.createQuery(jpqlQuery, Curso.class);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        entityManagerFactory.close();
 
         return Collections.unmodifiableList(query.getResultList());
     }

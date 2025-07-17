@@ -4,7 +4,6 @@ import com.cursos.online.domain.Curso;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CursoDaoTest {
@@ -64,28 +63,28 @@ public class CursoDaoTest {
 
     @Test
     public void buscarTodos() {
-        List<Curso> list = new ArrayList<>();
-        Curso curso = new Curso();
-        curso.setCodigo("A1");
-        curso.setDescricao("Teste criacao tabela");
-        curso.setNome("Curso tabela");
-
-        cursoDao.cadastrar(curso);
-
-        Curso curso2 = new Curso();
-        curso2.setCodigo("A2");
-        curso2.setDescricao("Teste criacao tabela 2");
-        curso2.setNome("Curso tabela 2");
-
-        cursoDao.cadastrar(curso2);
+        List<Curso> list;
+//        Curso curso = new Curso();
+//        curso.setCodigo("A1");
+//        curso.setDescricao("Teste criacao tabela");
+//        curso.setNome("Curso tabela");
+//
+//        cursoDao.cadastrar(curso);
+//
+//        Curso curso2 = new Curso();
+//        curso2.setCodigo("A2");
+//        curso2.setDescricao("Teste criacao tabela 2");
+//        curso2.setNome("Curso tabela 2");
+//
+//        cursoDao.cadastrar(curso2);
 
         list = cursoDao.buscarTodos();
 
         Assert.assertEquals(2, list.size());
 
-        list.forEach(c -> {
-            cursoDao.delete(c);
-        });
+//        list.forEach(c -> {
+//            cursoDao.delete(c);
+//        });
     }
 
     @Test

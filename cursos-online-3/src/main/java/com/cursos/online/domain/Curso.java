@@ -2,6 +2,8 @@ package com.cursos.online.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_curso")
 public class Curso {
@@ -19,6 +21,9 @@ public class Curso {
 
     @Column(name = "descricao")
     private String descricao;
+
+    @OneToMany(mappedBy = "curso")
+    List<Matricula> matriculas;
 
     public Long getId() {
         return id;
@@ -50,5 +55,13 @@ public class Curso {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Matricula> getMatriculas() {
+        return matriculas;
+    }
+
+    public void setMatriculas(List<Matricula> matriculas) {
+        this.matriculas = matriculas;
     }
 }
