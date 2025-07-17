@@ -1,25 +1,32 @@
 package com.cursos.online.dao;
 
+import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
 import com.cursos.online.domain.Matricula;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 
 public class MatriculaDao implements IMatriculaDao{
+    private final String persistenceName;
+
+    public MatriculaDao(String persistenceName) {
+        this.persistenceName = persistenceName;
+    }
+
+    private EntityManager getEntityManage() {
+        return SingletonEntityManagerFactory.getEntityManagerFactory(persistenceName).createEntityManager();
+    }
 
     @Override
     public Matricula cadastrar(Matricula matricula) {
 
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = getEntityManage();
 
         entityManager.getTransaction().begin();
         entityManager.persist(matricula);
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        entityManagerFactory.close();
 
         return matricula;
     }
@@ -27,9 +34,7 @@ public class MatriculaDao implements IMatriculaDao{
     @Override
     public void delete(Matricula matricula) {
 
-        EntityManagerFactory entityManagerFactory =
-                Persistence.createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+       EntityManager entityManager = getEntityManage();
 
         entityManager.getTransaction().begin();
         matricula = entityManager.merge(matricula);
@@ -37,6 +42,5 @@ public class MatriculaDao implements IMatriculaDao{
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        entityManagerFactory.close();
     }
 }

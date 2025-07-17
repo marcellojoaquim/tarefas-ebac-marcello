@@ -1,5 +1,6 @@
 package com.cursos.online.dao;
 
+import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
 import com.cursos.online.domain.Curso;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -12,19 +13,25 @@ import static jakarta.persistence.Persistence.createEntityManagerFactory;
 
 public class CursoDao implements ICursoDao{
 
+    private final String persistenceName;
+
+    public CursoDao(String persistenceName) {
+        this.persistenceName = persistenceName;
+    }
+
+    private EntityManager getEntityManager() {
+        return SingletonEntityManagerFactory.getEntityManagerFactory(persistenceName).createEntityManager();
+    }
+
     @Override
     public Curso cadastrar(Curso curso) {
-
-        EntityManagerFactory entityManagerFactory =
-                createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = getEntityManager();
 
         entityManager.getTransaction().begin();
         entityManager.persist(curso);
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        entityManagerFactory.close();
 
         return curso;
     }
@@ -65,19 +72,14 @@ public class CursoDao implements ICursoDao{
 
     @Override
     public List<Curso> buscarTodos() {
+        EntityManager entityManager = getEntityManager();
         String jpqlQuery = "SELECT c FROM Curso c";
-
-        EntityManagerFactory entityManagerFactory =
-                createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
-        entityManager.getTransaction().begin();
-        Query query = entityManager.createQuery(jpqlQuery, Curso.class);
-        entityManager.getTransaction().commit();
-        entityManager.close();
-        entityManagerFactory.close();
-
-        return Collections.unmodifiableList(query.getResultList());
+        try {
+            Query query = entityManager.createQuery(jpqlQuery, Curso.class);
+            return Collections.unmodifiableList(query.getResultList());
+        }  finally{
+            entityManager.close();
+        }
     }
 
     @Override

@@ -13,8 +13,8 @@ public class MatriculaDaoTest {
     private ICursoDao cursoDao;
 
     public MatriculaDaoTest() {
-        matriculaDao = new MatriculaDao();
-        cursoDao = new CursoDao();
+        matriculaDao = new MatriculaDao("cursos-online");
+        cursoDao = new CursoDao("cursos-online");
     }
 
     @Test
