@@ -26,12 +26,18 @@ public class Matricula {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_curso_fk",
             foreignKey = @ForeignKey(name = "fk_curso_matricula"),
             referencedColumnName = "id",
             nullable = false)
     private Curso curso;
+
+    @OneToOne
+    @JoinColumn(name = "id_aluno_fk",
+    foreignKey = @ForeignKey(name = "fk_aluno_matricula"),
+    referencedColumnName = "id", nullable = false)
+    private Aluno aluno;
 
     public Long getId() {
         return id;
@@ -76,8 +82,15 @@ public class Matricula {
     public Curso getCurso() {
         return curso;
     }
-
     public void setCurso(Curso curso) {
         this.curso = curso;
+    }
+
+    public Aluno getAluno() {
+        return aluno;
+    }
+
+    public void setAluno(Aluno aluno) {
+        this.aluno = aluno;
     }
 }

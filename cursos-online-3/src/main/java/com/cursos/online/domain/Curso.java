@@ -22,7 +22,7 @@ public class Curso {
     @Column(name = "descricao")
     private String descricao;
 
-    @OneToMany(mappedBy = "curso")
+    @OneToMany(mappedBy = "curso", fetch = FetchType.LAZY)
     List<Matricula> matriculas;
 
     public Long getId() {
