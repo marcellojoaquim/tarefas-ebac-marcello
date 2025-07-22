@@ -2,6 +2,8 @@ package com.cursos.online.domain;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_aluno")
 public class Aluno {
@@ -19,6 +21,12 @@ public class Aluno {
 
     @OneToOne(mappedBy = "aluno")
     private Matricula matricula;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "tb_aluno_computador",
+            joinColumns = {@JoinColumn(name = "id_aluno_fk")},
+            inverseJoinColumns = {@JoinColumn(name = "id_computador_fk")})
+    private List<Computador> computadores;
 
     public Long getId() {
         return id;
@@ -50,5 +58,13 @@ public class Aluno {
 
     public void setMatricula(Matricula matricula) {
         this.matricula = matricula;
+    }
+
+    public List<Computador> getComputadores() {
+        return computadores;
+    }
+
+    public void setComputadores(List<Computador> computadores) {
+        this.computadores = computadores;
     }
 }
