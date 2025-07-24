@@ -19,7 +19,7 @@ public class Aluno {
     @Column(name = "nome", length = 50, nullable = false)
     private String nome;
 
-    @OneToOne(mappedBy = "aluno")
+    @OneToOne(mappedBy = "aluno", cascade = CascadeType.ALL, orphanRemoval = true)
     private Matricula matricula;
 
     @ManyToMany(cascade = {CascadeType.ALL})

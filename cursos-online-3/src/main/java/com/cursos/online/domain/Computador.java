@@ -16,7 +16,7 @@ public class Computador {
     @Column(name = "codigo", length = 10, nullable = false, unique = true)
     private String codigo;
 
-    @Column(name = "decricao", length = 100, nullable = false)
+    @Column(name = "descricao", length = 100, nullable = false)
     private String descricao;
 
     @ManyToMany(mappedBy = "computadores")

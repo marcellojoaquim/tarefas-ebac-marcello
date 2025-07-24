@@ -26,14 +26,13 @@ public class Matricula {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_curso_fk",
             foreignKey = @ForeignKey(name = "fk_curso_matricula"),
-            referencedColumnName = "id",
-            nullable = false)
+            referencedColumnName = "id", nullable = false)
     private Curso curso;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_aluno_fk",
     foreignKey = @ForeignKey(name = "fk_aluno_matricula"),
     referencedColumnName = "id", nullable = false)
@@ -92,5 +91,8 @@ public class Matricula {
 
     public void setAluno(Aluno aluno) {
         this.aluno = aluno;
+        if (aluno != null && aluno.getMatricula() != this) {
+            aluno.setMatricula(this);
+        }
     }
 }

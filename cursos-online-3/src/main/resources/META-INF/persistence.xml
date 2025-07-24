@@ -10,6 +10,7 @@
         <class>com.cursos.online.domain.Curso</class>
         <class>com.cursos.online.domain.Matricula</class>
         <class>com.cursos.online.domain.Aluno</class>
+        <class>com.cursos.online.domain.Computador</class>
 
 
         <properties>

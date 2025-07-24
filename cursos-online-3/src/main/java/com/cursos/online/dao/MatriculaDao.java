@@ -32,12 +32,12 @@ public class MatriculaDao implements IMatriculaDao{
     }
 
     @Override
-    public void delete(Matricula matricula) {
+    public void delete(Long id, Matricula matricula) {
 
        EntityManager entityManager = getEntityManage();
 
         entityManager.getTransaction().begin();
-        matricula = entityManager.merge(matricula);
+        matricula = entityManager.find(Matricula.class, id);
         entityManager.remove(matricula);
         entityManager.getTransaction().commit();
 

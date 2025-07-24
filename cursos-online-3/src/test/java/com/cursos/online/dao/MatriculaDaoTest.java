@@ -24,6 +24,26 @@ public class MatriculaDaoTest {
     public void testCadastrar() {
         Aluno aluno = criarAluno("Aluno 01");
         Curso curso = criaCurso("A1");
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        matricula = matriculaDao.cadastrar(matricula);
+
+        Assert.assertNotNull(matricula);
+
+        matriculaDao.delete(matricula.getId(), matricula);
+    }
+
+    @Test
+    public void testDelete() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
         Matricula matricula = new Matricula();
         matricula.setDataMatricula(Instant.now());
         matricula.setCodigo("M1");
@@ -35,20 +55,7 @@ public class MatriculaDaoTest {
 
         matricula = matriculaDao.cadastrar(matricula);
 
-        Assert.assertNotNull(matricula);
-
         //matriculaDao.delete(matricula);
-    }
-
-    @Test
-    public void testDelete() {
-        Matricula matricula = new Matricula();
-        matricula.setDataMatricula(Instant.now());
-        matricula.setCodigo("M1");
-        matricula.setStatus("ATIVA");
-        matricula.setValor(2500d);
-
-        matriculaDao.cadastrar(matricula);
 
     }
 
