@@ -1,8 +1,11 @@
 package com.cursos.online.dao;
 
+import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
 import com.cursos.online.domain.Curso;
-import org.junit.Assert;
+import org.junit.After;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.util.List;
 
@@ -13,6 +16,12 @@ public class CursoDaoTest {
     public CursoDaoTest() {
         cursoDao = new CursoDao("cursos-online");
     }
+
+    @After
+    public void closeFactory() {
+        SingletonEntityManagerFactory.closeEntityManager();
+    }
+
     @Test
     public void cadastrar() {
         Curso curso = new Curso();
@@ -21,8 +30,8 @@ public class CursoDaoTest {
         curso.setNome("Curso tabela");
         curso = cursoDao.cadastrar(curso);
 
-        Assert.assertNotNull(curso);
-        Assert.assertEquals("Curso tabela", curso.getNome());
+        assertNotNull(curso);
+        assertEquals("Curso tabela", curso.getNome());
 
         cursoDao.delete(curso);
     }
@@ -40,7 +49,7 @@ public class CursoDaoTest {
 
         deleted = cursoDao.buscar(curso.getId());
 
-        Assert.assertNull(deleted);
+        assertNull(deleted);
     }
 
     @Test
@@ -54,9 +63,9 @@ public class CursoDaoTest {
 
         saved = cursoDao.buscar(curso.getId());
 
-        Assert.assertNotNull(saved);
-        Assert.assertEquals(curso.getCodigo(), saved.getCodigo());
-        Assert.assertEquals("Teste criacao tabela", saved.getDescricao());
+        assertNotNull(saved);
+        assertEquals(curso.getCodigo(), saved.getCodigo());
+        assertEquals("Teste criacao tabela", saved.getDescricao());
 
         cursoDao.delete(curso);
     }
@@ -80,7 +89,7 @@ public class CursoDaoTest {
 
         list = cursoDao.buscarTodos();
 
-        Assert.assertEquals(2, list.size());
+        assertEquals(2, list.size());
 
         list.forEach(c -> {
             cursoDao.delete(c);
@@ -97,8 +106,8 @@ public class CursoDaoTest {
         cursoDao.cadastrar(curso);
 
         Curso saved = cursoDao.buscar(curso.getId());
-        Assert.assertNotNull(saved);
-        Assert.assertEquals("Curso tabela", saved.getNome());
+        assertNotNull(saved);
+        assertEquals("Curso tabela", saved.getNome());
 
         Curso curso2 = new Curso();
         curso2.setCodigo("A2");
@@ -107,8 +116,8 @@ public class CursoDaoTest {
 
         Curso updated = cursoDao.atualizar(saved.getId(), curso2);
 
-        Assert.assertEquals(curso2.getNome(), updated.getNome());
-        Assert.assertEquals(curso2.getCodigo(), updated.getCodigo());
+        assertEquals(curso2.getNome(), updated.getNome());
+        assertEquals(curso2.getCodigo(), updated.getCodigo());
 
         cursoDao.delete(updated);
     }

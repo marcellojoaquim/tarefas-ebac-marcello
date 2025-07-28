@@ -1,8 +1,10 @@
 package com.cursos.online.dao;
 
+import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
 import com.cursos.online.domain.Aluno;
 import com.cursos.online.domain.Curso;
 import com.cursos.online.domain.Matricula;
+import org.junit.After;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -19,6 +21,11 @@ public class MatriculaDaoTest {
         matriculaDao = new MatriculaDao("cursos-online");
         cursoDao = new CursoDao("cursos-online");
         alunoDao = new AlunoDao("cursos-online");
+    }
+
+    @After
+    public void closeFactory() {
+        SingletonEntityManagerFactory.closeEntityManager();
     }
 
     @Test

@@ -39,9 +39,7 @@ public class CursoDao implements ICursoDao{
     @Override
     public void delete(Curso curso) {
         Curso deleteCurso;
-        EntityManagerFactory entityManagerFactory =
-                createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = getEntityManager();
 
         entityManager.getTransaction().begin();
         deleteCurso = entityManager.find(Curso.class, curso.getId());
@@ -49,23 +47,19 @@ public class CursoDao implements ICursoDao{
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        entityManagerFactory.close();
     }
 
     @Override
     public Curso buscar(Long id) {
         Curso curso;
 
-        EntityManagerFactory entityManagerFactory =
-                createEntityManagerFactory("cursos-online");
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = getEntityManager();
 
         entityManager.getTransaction().begin();
         curso = entityManager.find(Curso.class, id);
         entityManager.getTransaction().commit();
 
         entityManager.close();
-        entityManagerFactory.close();
 
         return curso;
     }
@@ -87,11 +81,9 @@ public class CursoDao implements ICursoDao{
         Curso saved;
         Curso updated;
         try {
-            EntityManager entityManager;
-            EntityManagerFactory entityManagerFactory = createEntityManagerFactory("cursos-online");
-            entityManager = entityManagerFactory.createEntityManager();
-            entityManager.getTransaction().begin();
+            EntityManager entityManager = getEntityManager();
 
+            entityManager.getTransaction().begin();
             saved = buscar(id);
             saved.setNome(curso.getNome());
             saved.setDescricao(curso.getDescricao());
