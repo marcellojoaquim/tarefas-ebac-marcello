@@ -1,10 +1,12 @@
 package com.cursos.online.dao;
 
 import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
+import com.cursos.online.domain.Curso;
 import com.cursos.online.domain.Matricula;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
 
 public class MatriculaDao implements IMatriculaDao{
     private final String persistenceName;
@@ -42,5 +44,54 @@ public class MatriculaDao implements IMatriculaDao{
         entityManager.getTransaction().commit();
 
         entityManager.close();
+    }
+
+    @Override
+    public Matricula buscarPorCodigoCurso(String codigoCurso) {
+        EntityManager entityManager = getEntityManage();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT m FROM Matricula m ");
+        stringBuilder.append("INNER JOIN Curso c ON c = m.curso ");
+        stringBuilder.append("WHERE c.codigo = :codigoCurso");
+
+        entityManager.getTransaction().begin();
+        TypedQuery<Matricula> query = entityManager.createQuery(stringBuilder.toString(), Matricula.class);
+        query.setParameter("codigoCurso", codigoCurso);
+        Matricula matricula = query.getSingleResult();
+
+        entityManager.close();
+        return matricula;
+    }
+
+    @Override
+    public Matricula buscarPorCurso(Curso curso) {
+        EntityManager entityManager = getEntityManage();
+
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("SELECT m FROM Matricula m ");
+        stringBuilder.append("INNER JOIN Curso c ON c = m.curso ");
+        stringBuilder.append("WHERE c = :curso");
+
+        entityManager.getTransaction().begin();
+        TypedQuery<Matricula> query = entityManager.createQuery(stringBuilder.toString(), Matricula.class);
+        query.setParameter("curso", curso);
+        Matricula matricula = query.getSingleResult();
+
+        entityManager.close();
+        return matricula;
+    }
+
+    @Override
+    public Matricula buscarPorId(Long id) {
+        Matricula matricula;
+
+        EntityManager entityManager = getEntityManage();
+
+        entityManager.getTransaction().begin();
+        matricula = entityManager.find(Matricula.class, id);
+        entityManager.close();
+
+        return matricula;
     }
 }

@@ -3,8 +3,9 @@ package com.cursos.online.dao;
 import com.cursos.online.domain.Aluno;
 import com.cursos.online.domain.Curso;
 import com.cursos.online.domain.Matricula;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 import java.time.Instant;
 
@@ -35,9 +36,56 @@ public class MatriculaDaoTest {
 
         matricula = matriculaDao.cadastrar(matricula);
 
-        Assert.assertNotNull(matricula);
+        assertNotNull(matricula);
 
         matriculaDao.delete(matricula.getId(), matricula);
+    }
+
+    @Test
+    public void testBuscarPorCodigoCurso() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        matriculaDao.cadastrar(matricula);
+
+        Matricula matricula1 = matriculaDao.buscarPorCodigoCurso("A1");
+
+        assertNotNull(matricula1);
+        assertEquals("M1", matricula1.getCodigo());
+
+        matriculaDao.delete(matricula1.getId(), matricula1);
+
+    }
+
+    @Test
+    public void testBuscarPorCurso() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        matriculaDao.cadastrar(matricula);
+
+        Matricula matricula1 = matriculaDao.buscarPorCurso(curso);
+
+        assertNotNull(matricula1);
+        assertEquals("M1", matricula1.getCodigo());
+
+        matriculaDao.delete(matricula1.getId(), matricula1);
     }
 
     @Test
@@ -55,8 +103,10 @@ public class MatriculaDaoTest {
 
         matricula = matriculaDao.cadastrar(matricula);
 
-        //matriculaDao.delete(matricula);
+        matriculaDao.delete(matricula.getId(), matricula);
+        Matricula deleted = matriculaDao.buscarPorId(matricula.getId());
 
+        assertNull(deleted);
     }
 
     private Curso criaCurso(String codigo){
