@@ -7,6 +7,9 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
+
+import java.util.List;
 
 public class MatriculaDao implements IMatriculaDao{
     private final String persistenceName;
@@ -93,5 +96,45 @@ public class MatriculaDao implements IMatriculaDao{
         entityManager.close();
 
         return matricula;
+    }
+
+    @Override
+    public Matricula buscarPorCodigoCursoCriteria(String codigoCurso) {
+        EntityManager entityManager = getEntityManage();
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+
+        CriteriaQuery<Matricula> query = builder.createQuery(Matricula.class);
+        Root<Matricula> root = query.from(Matricula.class);
+        Join<Object, Object> join = root.join("curso", JoinType.INNER);
+        query.select(root).where(builder.equal(join.get("codigo"), codigoCurso));
+
+        TypedQuery<Matricula> typedQuery =
+                entityManager.createQuery(query);
+
+        Matricula matricula = typedQuery.getSingleResult();
+
+        entityManager.close();
+        return matricula;
+    }
+
+    @Override
+    public List<Matricula> buscarTodosCriteria() {
+
+        EntityManager entityManager = getEntityManage();
+
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Matricula> query = builder.createQuery(Matricula.class);
+        Root<Matricula> root = query.from(Matricula.class);
+
+        query.select(root);
+
+        TypedQuery<Matricula> typedQuery =
+                entityManager.createQuery(query);
+        List<Matricula> list = typedQuery.getResultList();
+
+        entityManager.close();
+
+        return list;
     }
 }

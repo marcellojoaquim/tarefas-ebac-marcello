@@ -116,6 +116,35 @@ public class MatriculaDaoTest {
         assertNull(deleted);
     }
 
+    @Test
+    public void testBuscarPorCriteriaCodigoCurso() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        matriculaDao.cadastrar(matricula);
+
+        Matricula matricula1 = matriculaDao.buscarPorCodigoCursoCriteria("A1");
+
+        assertNotNull(matricula1);
+        assertEquals("M1", matricula1.getCodigo());
+
+        matriculaDao.delete(matricula1.getId(), matricula1);
+
+    }
+
+//    @Test
+//    public void buscarTodasMatriculasCriteria() {
+//
+//    }
+
     private Curso criaCurso(String codigo){
         Curso curso = new Curso();
         curso.setCodigo(codigo);
