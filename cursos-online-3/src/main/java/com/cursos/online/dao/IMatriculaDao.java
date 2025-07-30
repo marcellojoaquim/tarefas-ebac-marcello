@@ -14,6 +14,7 @@ public interface IMatriculaDao {
     Matricula buscarPorId(Long id);
     Matricula buscarPorCodigoCursoCriteria(String codigoCurso);
     List<Matricula> buscarTodosCriteria();
+    List<Matricula> buscarTodos();
     //Matricula atualizar(Matricula matricula);
 
 }

@@ -3,12 +3,10 @@ package com.cursos.online.dao;
 import com.cursos.online.dao.singleton.SingletonEntityManagerFactory;
 import com.cursos.online.domain.Curso;
 import com.cursos.online.domain.Matricula;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
-import jakarta.persistence.TypedQuery;
+import jakarta.persistence.*;
 import jakarta.persistence.criteria.*;
 
+import java.util.Collections;
 import java.util.List;
 
 public class MatriculaDao implements IMatriculaDao{
@@ -137,4 +135,18 @@ public class MatriculaDao implements IMatriculaDao{
 
         return list;
     }
+
+    @Override
+    public List<Matricula> buscarTodos() {
+        EntityManager entityManager = getEntityManage();
+        String jpqlQuery = "SELECT m FROM Matricula m";
+
+        try {
+            Query query = entityManager.createQuery(jpqlQuery, Matricula.class);
+            return Collections.unmodifiableList(query.getResultList());
+        } finally {
+            entityManager.close();
+        }
+    }
+
 }

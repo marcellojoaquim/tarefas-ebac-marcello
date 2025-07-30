@@ -10,6 +10,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.time.Instant;
+import java.util.List;
 
 public class MatriculaDaoTest {
 
@@ -140,10 +141,93 @@ public class MatriculaDaoTest {
 
     }
 
-//    @Test
-//    public void buscarTodasMatriculasCriteria() {
-//
-//    }
+    @Test
+    public void buscarTodasMatriculasCriteria() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
+
+
+
+        Aluno aluno1 = new Aluno();
+        aluno1.setNome("Aluno 02");
+        aluno1.setCodigo("Aluno 02");
+        alunoDao.cadastrar(aluno1);
+
+
+        Curso curso1 = new Curso();
+        curso1.setCodigo("A2");
+        curso1.setNome("Curso 1");
+        cursoDao.cadastrar(curso1);
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        Matricula matricula1 = new Matricula();
+        matricula1.setDataMatricula(Instant.now());
+        matricula1.setCodigo("M2");
+        matricula1.setStatus("ATIVA");
+        matricula1.setValor(2500d);
+        matricula1.setCurso(curso1);
+        matricula1.setAluno(aluno1);
+
+        matriculaDao.cadastrar(matricula1);
+        matriculaDao.cadastrar(matricula);
+
+        List<Matricula> matriculas = matriculaDao.buscarTodosCriteria();
+
+        assertNotNull(matriculas);
+        assertEquals(2, matriculas.size());
+        assertEquals("M1", matriculas.get(1).getCodigo());
+
+    }
+
+    @Test
+    public void buscarTodasMatriculas() {
+        Aluno aluno = criarAluno("Aluno 01");
+        Curso curso = criaCurso("A1");
+
+        Aluno aluno1 = new Aluno();
+        aluno1.setNome("Aluno 02");
+        aluno1.setCodigo("Aluno 02");
+        alunoDao.cadastrar(aluno1);
+
+
+        Curso curso1 = new Curso();
+        curso1.setCodigo("A2");
+        curso1.setNome("Curso 1");
+        cursoDao.cadastrar(curso1);
+
+        Matricula matricula = new Matricula();
+        matricula.setDataMatricula(Instant.now());
+        matricula.setCodigo("M1");
+        matricula.setStatus("ATIVA");
+        matricula.setValor(2500d);
+        matricula.setCurso(curso);
+        matricula.setAluno(aluno);
+
+        Matricula matricula1 = new Matricula();
+        matricula1.setDataMatricula(Instant.now());
+        matricula1.setCodigo("M2");
+        matricula1.setStatus("ATIVA");
+        matricula1.setValor(2500d);
+        matricula1.setCurso(curso1);
+        matricula1.setAluno(aluno1);
+
+        matriculaDao.cadastrar(matricula1);
+        matriculaDao.cadastrar(matricula);
+
+        List<Matricula> matriculas = matriculaDao.buscarTodos();
+
+        assertNotNull(matriculas);
+        assertEquals(2, matriculas.size());
+        assertEquals("M1", matriculas.get(1).getCodigo());
+
+    }
 
     private Curso criaCurso(String codigo){
         Curso curso = new Curso();
