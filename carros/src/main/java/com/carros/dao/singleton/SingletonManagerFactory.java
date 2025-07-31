@@ -1,0 +1,22 @@
+package com.carros.dao.singleton;
+
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+
+public class SingletonManagerFactory {
+
+    private static EntityManagerFactory entityManagerFactory;
+
+    public static EntityManagerFactory getEntityManagerFactory(String persistenceUnitName) {
+        if (entityManagerFactory == null || !entityManagerFactory.isOpen()) {
+            entityManagerFactory = Persistence.createEntityManagerFactory(persistenceUnitName);
+        }
+        return entityManagerFactory;
+    }
+
+    public static void closeEntityManager() {
+        if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
+    }
+}
