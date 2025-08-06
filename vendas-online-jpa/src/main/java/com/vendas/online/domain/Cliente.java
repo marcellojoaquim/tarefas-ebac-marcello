@@ -4,7 +4,7 @@ import com.vendas.online.dao.Persistente;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "TB_CLIENTE")
+@Table(name = "tb_cliente")
 public class Cliente implements Persistente {
 
     @Id
@@ -24,7 +24,7 @@ public class Cliente implements Persistente {
     @Column(name = "tele", nullable = false)
     private Long tel;
 
-    @Column(name = "end", nullable = false, length = 100)
+    @Column(name = "endereco", nullable = false, length = 100)
     private String end;
 
     @Column(name = "numero", nullable = false)

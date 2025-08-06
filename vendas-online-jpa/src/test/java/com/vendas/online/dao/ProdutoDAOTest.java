@@ -24,10 +24,10 @@ public class ProdutoDAOTest {
         produto.setFabricante("China");
         produto.setValor(new BigDecimal(128.256));
 
-        boolean result = dao.cadastrar(produto);
-        assertTrue(result);
+        Produto result = dao.cadastrar(produto);
+        assertNotNull(result);
 
-        dao.excluir(produto.getCodigo());
+        dao.excluir(produto);
     }
 
     @Test
@@ -40,15 +40,15 @@ public class ProdutoDAOTest {
         produto.setFabricante("China");
         produto.setValor(new BigDecimal(128.256));
 
-        boolean result = dao.cadastrar(produto);
-        assertTrue(result);
+        Produto result = dao.cadastrar(produto);
+        assertNotNull(result);
 
         Produto produtoSalvo = dao.consultar(produto.getCodigo());
         assertNotNull(produtoSalvo);
         assertEquals(produto.getNome(), produtoSalvo.getNome());
         assertEquals(produto.getDescricao(), produtoSalvo.getDescricao());
 
-        dao.excluir(produto.getCodigo());
+        dao.excluir(produto);
     }
 
     @Test
@@ -74,7 +74,7 @@ public class ProdutoDAOTest {
         assertEquals(produtoSalvo.getNome(), produtoAlterado.getNome());
         assertEquals("Novo fabricante", produtoAlterado.getFabricante());
 
-        dao.excluir(produtoAlterado.getCodigo());
+        dao.excluir(produtoAlterado);
     }
 
     @Test
@@ -110,7 +110,7 @@ public class ProdutoDAOTest {
 
         list.forEach(pro -> {
             try {
-                dao.excluir(pro.getCodigo());
+                dao.excluir(pro);
             } catch (DAOException e) {
                 throw new RuntimeException(e);
             }

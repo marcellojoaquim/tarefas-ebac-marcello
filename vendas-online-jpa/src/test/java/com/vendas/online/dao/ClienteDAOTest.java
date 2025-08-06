@@ -26,10 +26,10 @@ public class ClienteDAOTest {
         cliente.setEstado("PE");
         cliente.setTel(98765432100L);
 
-        boolean result = dao.cadastrar(cliente);
-        assertTrue(result);
+        Cliente result = dao.cadastrar(cliente);
+        assertNotNull(result);
 
-        dao.excluir(cliente.getCpf());
+        dao.excluir(cliente);
     }
 
     @Test
@@ -51,7 +51,7 @@ public class ClienteDAOTest {
         assertNotNull(clienteSalvo);
         assertEquals(cliente.getCpf(), clienteSalvo.getCpf());
 
-        dao.excluir(clienteSalvo.getCpf());
+        dao.excluir(clienteSalvo);
     }
 
     @Test
@@ -79,7 +79,7 @@ public class ClienteDAOTest {
         assertNotNull(clienteAlterado);
         assertEquals("Novo Nome", clienteAlterado.getNome());
 
-        dao.excluir(cliente.getCpf());
+        dao.excluir(cliente);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class ClienteDAOTest {
 
         list.forEach(cli -> {
             try {
-                dao.excluir(cli.getCpf());
+                dao.excluir(cli);
             } catch (DAOException e) {
                 throw new RuntimeException(e);
             }

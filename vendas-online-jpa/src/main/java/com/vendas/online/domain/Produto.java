@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+@Entity
 @Table(name = "TB_PRODUTO")
 public class Produto implements Persistente {
 
@@ -29,7 +30,7 @@ public class Produto implements Persistente {
     private String fabricante;
 
     @OneToOne(mappedBy = "codigoProduto", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Produto produto;
+    private Estoque estoque;
 
     @OneToOne(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
     private ProdutoQuantidade produtoQuantidade;
@@ -82,12 +83,12 @@ public class Produto implements Persistente {
         this.fabricante = fabricante;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Estoque getEstoque() {
+        return estoque;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setEstoque(Estoque estoque) {
+        this.estoque = estoque;
     }
 
     public ProdutoQuantidade getProdutoQuantidade() {

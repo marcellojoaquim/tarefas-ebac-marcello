@@ -18,13 +18,13 @@ public class GenericService<T extends Persistente, E extends Serializable> imple
         this.dao = dao;
     }
 
-    public Boolean cadastrar(T entity) throws TipoChaveNaoEncontradaException, DAOException {
+    public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DAOException {
         return this.dao.cadastrar(entity);
     }
 
     @Override
-    public void excluir(E valor) throws DAOException {
-        this.dao.excluir(valor);
+    public void excluir(T entity) throws DAOException {
+        this.dao.excluir(entity);
     }
 
     @Override

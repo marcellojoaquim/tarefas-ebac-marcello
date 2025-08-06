@@ -16,7 +16,7 @@ public interface IGenericService<T extends Persistente, E extends Serializable> 
      * @return retorna verdadeiro para cadastrado e falso para não cadastrado
      * @throws DAOException
      */
-    public Boolean cadastrar(T entity) throws TipoChaveNaoEncontradaException, DAOException;
+    public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DAOException;
 
     /**
      * Método para excluir um registro do banco de dados
@@ -24,7 +24,7 @@ public interface IGenericService<T extends Persistente, E extends Serializable> 
      * @param valor chave única do dado a ser excluído
      * @throws DAOException
      */
-    public void excluir(E valor) throws DAOException;
+    public void excluir(T entity) throws DAOException;
 
     /**
      *Método para alterar um registro no bando de dados.

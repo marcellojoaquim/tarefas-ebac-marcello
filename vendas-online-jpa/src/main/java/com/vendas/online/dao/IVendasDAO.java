@@ -7,6 +7,7 @@ import com.vendas.online.exceptions.TipoChaveNaoEncontradaException;
 
 public interface IVendasDAO extends IGenericDAO<Venda, String> {
 
-    public void finalizarVenda(Venda venda) throws TipoChaveNaoEncontradaException, DAOException;
-    public void cancelarVenda(Venda venda) throws TipoChaveNaoEncontradaException, DAOException;
+    void finalizarVenda(Venda venda) throws TipoChaveNaoEncontradaException, DAOException;
+    void cancelarVenda(Venda venda) throws TipoChaveNaoEncontradaException, DAOException;
+    public Venda consultarComCollection(Long id);
 }

@@ -31,8 +31,8 @@ public class EstoqueDAOTest {
         Estoque result = estoqueDAO.consultar(produto.getCodigo());
         assertNotNull(result);
 
-        estoqueDAO.excluir(result.getCodigoProduto());
-        dao.excluir(produto.getCodigo());
+        estoqueDAO.excluir(result);
+        dao.excluir(produto);
     }
 
     @Test
@@ -55,8 +55,8 @@ public class EstoqueDAOTest {
         assertEquals(produto.getCodigo(), estoqueCadastrado.getCodigoProduto());
 
 
-        estoqueDAO.excluir(estoqueCadastrado.getCodigoProduto());
-        dao.excluir(produto.getCodigo());
+        estoqueDAO.excluir(estoqueCadastrado);
+        dao.excluir(produto);
     }
 
     @Test
@@ -85,15 +85,14 @@ public class EstoqueDAOTest {
         estoqueCadastrado.setQuantidade(256);
         estoqueDAO.alterar(estoqueCadastrado);
 
-        Estoque estoqueAlterado = estoqueDAO.consultar(estoqueCadastrado.getCodigoProduto());
+        Estoque estoqueAlterado = estoqueDAO.consultar(estoqueCadastrado.getCodigoProduto().toString());
 
         assertEquals(produto.getCodigo(), estoqueAlterado.getCodigoProduto());
         assertEquals(256, (int)estoqueAlterado.getQuantidade());
 
-        estoqueDAO.excluir(estoqueAlterado.getCodigoProduto());
-        estoqueDAO.excluir(produto1.getCodigo());
-        dao.excluir(produto.getCodigo());
-        dao.excluir(produto1.getCodigo());
+        estoqueDAO.excluir(estoqueAlterado);
+        dao.excluir(produto);
+        dao.excluir(produto1);
 
     }
 
@@ -124,7 +123,7 @@ public class EstoqueDAOTest {
 
         list.forEach(est -> {
             try {
-                estoqueDAO.excluir(est.getCodigoProduto());
+                estoqueDAO.excluir(est);
                 dao.excluir(est.getCodigoProduto());
             } catch (DAOException e) {
                 throw new RuntimeException(e);

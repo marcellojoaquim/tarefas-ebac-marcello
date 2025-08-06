@@ -1,4 +1,7 @@
-package com.vendas.online.dao.generic.jdbc;
+package com.vendas.online.dao.generic.jpa;
+
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -27,7 +30,7 @@ public class ConnectionFactory {
     private static Connection initConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:postgresql://172.17.0.1:5433/vendas_online", "postgres", "root");
+                    "jdbc:postgresql://localhost:15432/vendas_online_jpa", "postgres", "root");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
