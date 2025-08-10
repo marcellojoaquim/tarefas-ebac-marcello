@@ -11,12 +11,12 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.Collection;
 
-public class ProdutoDAOTest {
+public class ProdutoDAODB1Test {
 
     @Test
     public void cadastrar() throws DAOException, TipoChaveNaoEncontradaException {
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
-        ProdutoDAO dao = new ProdutoDAO();
+
+        ProdutoDAODB1 dao = new ProdutoDAODB1();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -32,7 +32,7 @@ public class ProdutoDAOTest {
 
     @Test
     public void buscar() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ProdutoDAO dao = new ProdutoDAO();
+        ProdutoDAODB1 dao = new ProdutoDAODB1();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -43,7 +43,7 @@ public class ProdutoDAOTest {
         Produto result = dao.cadastrar(produto);
         assertNotNull(result);
 
-        Produto produtoSalvo = dao.consultar(produto.getCodigo());
+        Produto produtoSalvo = dao.consultar(produto.getId().toString());
         assertNotNull(produtoSalvo);
         assertEquals(produto.getNome(), produtoSalvo.getNome());
         assertEquals(produto.getDescricao(), produtoSalvo.getDescricao());
@@ -53,7 +53,7 @@ public class ProdutoDAOTest {
 
     @Test
     public void atualizar() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ProdutoDAO dao = new ProdutoDAO();
+        ProdutoDAODB1 dao = new ProdutoDAODB1();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -63,13 +63,13 @@ public class ProdutoDAOTest {
 
         dao.cadastrar(produto);
 
-        Produto produtoSalvo = dao.consultar(produto.getCodigo());
+        Produto produtoSalvo = dao.consultar(produto.getId().toString());
         assertNotNull(produtoSalvo);
 
         produtoSalvo.setFabricante("Novo fabricante");
         dao.alterar(produtoSalvo);
 
-        Produto produtoAlterado = dao.consultar(produtoSalvo.getCodigo());
+        Produto produtoAlterado = dao.consultar(produtoSalvo.getId().toString());
 
         assertEquals(produtoSalvo.getNome(), produtoAlterado.getNome());
         assertEquals("Novo fabricante", produtoAlterado.getFabricante());
@@ -79,7 +79,7 @@ public class ProdutoDAOTest {
 
     @Test
     public void buscarTodos() throws DAOException, TipoChaveNaoEncontradaException {
-        ProdutoDAO dao = new ProdutoDAO();
+        ProdutoDAODB1 dao = new ProdutoDAODB1();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");

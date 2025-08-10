@@ -1,6 +1,7 @@
 package com.vendas.online.dao;
 
 import com.vendas.online.dao.generic.GenericDAO;
+import com.vendas.online.dao.generic.GenericDaoDB1;
 import com.vendas.online.domain.Venda;
 import com.vendas.online.exceptions.DAOException;
 import com.vendas.online.exceptions.TipoChaveNaoEncontradaException;
@@ -10,7 +11,7 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 
-public class VendaDAO extends GenericDAO<Venda, String> implements IVendasDAO {
+public class VendaDAO extends GenericDaoDB1<Venda, String> implements IVendasDAO {
 
     public VendaDAO() {
         super(Venda.class);

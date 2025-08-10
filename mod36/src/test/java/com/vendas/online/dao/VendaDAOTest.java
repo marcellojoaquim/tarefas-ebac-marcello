@@ -40,9 +40,9 @@ public class VendaDAOTest {
 
     public VendaDAOTest() {
         vendaDao = new VendaDAO();
-        clienteDao = new ClienteDAO();
-        produtoDao = new ProdutoDAO();
-        estoqueDAO = new EstoqueDAO();
+        clienteDao = new ClienteDaoDB1();
+        produtoDao = new ProdutoDAODB1();
+        estoqueDAO = new EstoqueDAODB1();
     }
 
     @Before

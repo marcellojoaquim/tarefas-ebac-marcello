@@ -17,7 +17,7 @@ public class Estoque implements Persistente {
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_produto_fk",
-        foreignKey = @ForeignKey(name = "fk_curso_matricula"),
+        foreignKey = @ForeignKey(name = "fk_estoque_produto"),
         referencedColumnName = "id", nullable = false)
     private Produto codigoProduto;
 

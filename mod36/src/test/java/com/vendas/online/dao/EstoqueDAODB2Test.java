@@ -6,39 +6,44 @@ import com.vendas.online.exceptions.DAOException;
 import com.vendas.online.exceptions.MaisDeUmRegistroException;
 import com.vendas.online.exceptions.TableException;
 import com.vendas.online.exceptions.TipoChaveNaoEncontradaException;
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Collection;
 
-public class EstoqueDAOTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class EstoqueDAODB2Test {
 
     @Test
     public void inserir() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ProdutoDAO dao = new ProdutoDAO();
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
+        ProdutoDAODB2 dao = new ProdutoDAODB2();
+        EstoqueDAODB2 estoqueDAODB1 = new EstoqueDAODB2();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
         produto.setDescricao("descricao produto 01");
         produto.setFabricante("China");
         produto.setValor(new BigDecimal("128.256"));
-
         dao.cadastrar(produto);
 
+        Estoque estoque = new Estoque();
+        estoque.setCodigoProduto(produto);
+        estoque.setQuantidade(128);
 
-        Estoque result = estoqueDAO.consultar(produto.getCodigo());
+        var result = estoqueDAODB1.cadastrar(estoque);
+
         assertNotNull(result);
 
-        estoqueDAO.excluir(result);
-        dao.excluir(produto);
+        estoqueDAODB1.excluir(result);
+
     }
 
     @Test
     public void consultar() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ProdutoDAO dao = new ProdutoDAO();
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
+        ProdutoDAODB2 dao = new ProdutoDAODB2();
+        EstoqueDAODB2 estoqueDAODB1 = new EstoqueDAODB2();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -48,21 +53,24 @@ public class EstoqueDAOTest {
 
         dao.cadastrar(produto);
 
+        Estoque estoque = new Estoque();
+        estoque.setCodigoProduto(produto);
+        estoque.setQuantidade(128);
 
-        Estoque estoqueCadastrado = estoqueDAO.consultar(produto.getCodigo());
+        var result = estoqueDAODB1.cadastrar(estoque);
+
+        Estoque estoqueCadastrado = estoqueDAODB1.consultar(result.getId().toString());
 
         assertNotNull(estoqueCadastrado);
-        assertEquals(produto.getCodigo(), estoqueCadastrado.getCodigoProduto());
+        assertEquals(produto.getId(), estoqueCadastrado.getCodigoProduto().getId());
 
-
-        estoqueDAO.excluir(estoqueCadastrado);
-        dao.excluir(produto);
+        estoqueDAODB1.excluir(estoqueCadastrado);
     }
 
     @Test
     public void atualizar() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ProdutoDAO dao = new ProdutoDAO();
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
+        ProdutoDAODB2 dao = new ProdutoDAODB2();
+        EstoqueDAODB2 estoqueDAODB1 = new EstoqueDAODB2();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -80,26 +88,36 @@ public class EstoqueDAOTest {
         dao.cadastrar(produto);
         dao.cadastrar(produto1);
 
-        Estoque estoqueCadastrado = estoqueDAO.consultar(produto.getCodigo());
+        Estoque estoque = new Estoque();
+        estoque.setCodigoProduto(produto);
+        estoque.setQuantidade(128);
+
+        Estoque estoque1 = new Estoque();
+        estoque1.setCodigoProduto(produto1);
+        estoque1.setQuantidade(128);
+
+        estoqueDAODB1.cadastrar(estoque);
+        estoqueDAODB1.cadastrar(estoque1);
+
+        Estoque estoqueCadastrado = estoqueDAODB1.consultar(estoque.getId().toString());
 
         estoqueCadastrado.setQuantidade(256);
-        estoqueDAO.alterar(estoqueCadastrado);
+        estoqueDAODB1.alterar(estoqueCadastrado);
 
-        Estoque estoqueAlterado = estoqueDAO.consultar(estoqueCadastrado.getCodigoProduto().toString());
+        Estoque estoqueAlterado = estoqueDAODB1.consultar(estoqueCadastrado.getId().toString());
 
-        assertEquals(produto.getCodigo(), estoqueAlterado.getCodigoProduto());
+        assertEquals(produto.getId(), estoqueAlterado.getCodigoProduto().getId());
         assertEquals(256, (int)estoqueAlterado.getQuantidade());
 
-        estoqueDAO.excluir(estoqueAlterado);
-        dao.excluir(produto);
-        dao.excluir(produto1);
+        estoqueDAODB1.excluir(estoqueAlterado);
+        estoqueDAODB1.excluir(estoque1);
 
     }
 
     @Test
     public void buscarTodos() throws DAOException, TipoChaveNaoEncontradaException {
-        ProdutoDAO dao = new ProdutoDAO();
-        EstoqueDAO estoqueDAO = new EstoqueDAO();
+        ProdutoDAODB2 dao = new ProdutoDAODB2();
+        EstoqueDAODB2 estoqueDAODB1 = new EstoqueDAODB2();
         Produto produto = new Produto();
         produto.setNome("Produto 01");
         produto.setCodigo("prod-01");
@@ -117,14 +135,24 @@ public class EstoqueDAOTest {
         dao.cadastrar(produto);
         dao.cadastrar(produto1);
 
+        Estoque estoque = new Estoque();
+        estoque.setCodigoProduto(produto);
+        estoque.setQuantidade(128);
 
-        Collection<Estoque> list = estoqueDAO.buscarTodos();
+        Estoque estoque1 = new Estoque();
+        estoque1.setCodigoProduto(produto1);
+        estoque1.setQuantidade(128);
+
+        estoqueDAODB1.cadastrar(estoque);
+        estoqueDAODB1.cadastrar(estoque1);
+
+
+        Collection<Estoque> list = estoqueDAODB1.buscarTodos();
         assertNotNull(list);
 
         list.forEach(est -> {
             try {
-                estoqueDAO.excluir(est);
-                dao.excluir(est.getCodigoProduto());
+                estoqueDAODB1.excluir(est);
             } catch (DAOException e) {
                 throw new RuntimeException(e);
             }

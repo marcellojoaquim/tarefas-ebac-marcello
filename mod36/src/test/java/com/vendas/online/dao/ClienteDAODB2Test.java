@@ -5,17 +5,18 @@ import com.vendas.online.exceptions.DAOException;
 import com.vendas.online.exceptions.MaisDeUmRegistroException;
 import com.vendas.online.exceptions.TableException;
 import com.vendas.online.exceptions.TipoChaveNaoEncontradaException;
-
-import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.util.Collection;
 
-public class ClienteDAOTest {
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+public class ClienteDAODB2Test {
 
     @Test
     public void cadastrarCliente() throws DAOException, TipoChaveNaoEncontradaException {
-        ClienteDAO dao = new ClienteDAO();
+        ClienteDaoDB2 dao = new ClienteDaoDB2();
         Cliente cliente = new Cliente();
         cliente.setCpf(12345678900L);
         cliente.setNome("Cliente 01");
@@ -34,7 +35,7 @@ public class ClienteDAOTest {
 
     @Test
     public void consultarCliente() throws DAOException, TipoChaveNaoEncontradaException, TableException, MaisDeUmRegistroException {
-        ClienteDAO dao = new ClienteDAO();
+        ClienteDaoDB2 dao = new ClienteDaoDB2();
         Cliente cliente = new Cliente();
         cliente.setCpf(12345678900L);
         cliente.setNome("Cliente 01");
@@ -56,7 +57,7 @@ public class ClienteDAOTest {
 
     @Test
     public void alterarCliente() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-        ClienteDAO dao = new ClienteDAO();
+        ClienteDaoDB2 dao = new ClienteDaoDB2();
         Cliente cliente = new Cliente();
         cliente.setCpf(12345678900L);
         cliente.setNome("Cliente 01");
@@ -84,7 +85,7 @@ public class ClienteDAOTest {
 
     @Test
     public void buscarTodos() throws DAOException, TipoChaveNaoEncontradaException {
-        ClienteDAO dao = new ClienteDAO();
+        ClienteDaoDB2 dao = new ClienteDaoDB2();
         Cliente cliente = new Cliente();
         cliente.setCpf(12345678900L);
         cliente.setNome("Cliente 00");
