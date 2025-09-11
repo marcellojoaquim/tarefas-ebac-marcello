@@ -5,7 +5,7 @@ import javax.enterprise.context.ApplicationScoped;
 
 import com.vendas.online.dao.generic.GenericDao;
 import com.vendas.online.domain.Cliente;
-
+//Data access object
 @ApplicationScoped
 public class ClienteDao extends GenericDao<Cliente, Long> implements IClienteDao{
 	
