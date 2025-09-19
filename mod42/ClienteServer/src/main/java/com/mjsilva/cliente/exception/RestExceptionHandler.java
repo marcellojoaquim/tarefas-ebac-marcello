@@ -22,6 +22,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.mjsilva.cliente.errorhandling.ApiError;
 
+import jakarta.validation.ConstraintViolationException;
+
 
 @RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
@@ -73,9 +75,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
 
 	
-    @ExceptionHandler(jakarta.validation.ConstraintViolationException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolation(
-            jakarta.validation.ConstraintViolationException ex) {
+            ConstraintViolationException ex) {
         ApiError apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage("Validation error");
         apiError.addValidationErrors(ex.getConstraintViolations());

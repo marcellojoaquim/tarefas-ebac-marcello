@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,5 +59,11 @@ public class ClienteResource {
 	@Operation(summary = "Cadastra cliente")
 	public ResponseEntity<Cliente> cadastrar(@RequestBody @Valid Cliente cliente){
 		return ResponseEntity.ok(cadastroCliente.cadastrar(cliente));
+	}
+	
+	@PutMapping
+	@Operation(summary="Atualizar cliente")
+	public ResponseEntity<Cliente> atualizar(@RequestBody @Valid Cliente cliente) {
+		return ResponseEntity.ok(cadastroCliente.atualizar(cliente));
 	}
 }
