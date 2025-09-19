@@ -3,6 +3,7 @@ package com.mjsilva.cliente.exception;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
+
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.client.HttpClientErrorException.BadRequest;
 import org.springframework.web.client.HttpClientErrorException.NotFound;
 import org.springframework.web.client.HttpClientErrorException.UnprocessableEntity;
@@ -21,10 +23,10 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.mjsilva.cliente.errorhandling.ApiError;
 
 
+@RestControllerAdvice
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 	
-	
-    protected ResponseEntity<Object> handleMissingServletRequestParameter(
+	protected ResponseEntity<Object> handleMissingServletRequestParameter(
             MissingServletRequestParameterException ex, HttpHeaders headers,
             HttpStatus status, WebRequest request) {
         String error = ex.getParameterName() + " parameter is missing";
