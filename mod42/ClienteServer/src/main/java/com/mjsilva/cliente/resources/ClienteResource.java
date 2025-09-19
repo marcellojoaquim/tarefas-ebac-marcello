@@ -47,7 +47,7 @@ public class ClienteResource {
 		return ResponseEntity.ok(buscarCliente.buscarPorId(id));
 	}
 	
-	@GetMapping(value="/{cpf}")
+	@GetMapping(value="/cpf/{cpf}")
 	@Operation(summary = "Buscar por cpf")
 	public ResponseEntity<Cliente> buscarPorCpf(
 			@Parameter(description="Long cpf") @PathVariable(value = "cpf", required = true) Long cpf) {
