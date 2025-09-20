@@ -1,4 +1,4 @@
-package com.mjsilva.cliente.resources;
+package com.mjsilva.cliente.resource;
 
 
 import org.springframework.data.domain.Page;
@@ -22,12 +22,12 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping(value="/cliente")
-public class ClienteResource {
+public class ClienteController {
 	
 	private BuscarCliente buscarCliente;
 	private CadastroCliente cadastroCliente;
 	
-	public ClienteResource(BuscarCliente buscarCliente,
+	public ClienteController(BuscarCliente buscarCliente,
 			CadastroCliente cadastroCliente) {
 		this.buscarCliente = buscarCliente;
 		this.cadastroCliente = cadastroCliente;

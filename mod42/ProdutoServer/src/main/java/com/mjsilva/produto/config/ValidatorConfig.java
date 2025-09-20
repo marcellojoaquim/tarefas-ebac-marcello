@@ -1,4 +1,4 @@
-package com.mjsilva.cliente.config;
+package com.mjsilva.produto.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,10 +8,11 @@ import jakarta.validation.Validator;
 
 @Configuration
 public class ValidatorConfig {
-	
-	@Bean
-	Validator validator() {
+
+    @Bean
+    Validator validatorFactory() {
 		LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
 		return bean;
 	}
+
 }
