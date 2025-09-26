@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.mjsilva.cliente.domain.Cliente;
@@ -29,7 +30,8 @@ public class BuscarClienteTest {
 	IClienteRepository clienteRepository;
 	
 	private Cliente cliente;
-	private Long cpfNaoExiste = 123456789l;
+	private final Long cpfNaoExiste = 123456789l;
+	private final String idNaoExiste = "12345678900987654321";
 	
 	@BeforeEach
 	void setUp() {
@@ -54,6 +56,7 @@ public class BuscarClienteTest {
 		
 		Cliente result = buscarCliente.buscarPorCpf(12345678900l);
 		
+		Mockito.verify(clienteRepository).findByCpf(12345678900l);
 		assertNotNull(result);
 		assertEquals(result.getCpf(), cliente.getCpf());
 		assertEquals(result.getEmail(), cliente.getEmail());
@@ -62,7 +65,7 @@ public class BuscarClienteTest {
 	}
 	
 	@Test
-	@DisplayName("Deve lançar EntityNotFoundException quando não encontrado")
+	@DisplayName("Deve lançar EntityNotFoundException quando não encontrado por cpf")
 	void erroAoBbuscarPorCpf() {
 		
 		when(clienteRepository.findByCpf(cpfNaoExiste))
@@ -85,9 +88,51 @@ public class BuscarClienteTest {
 			.thenReturn(Optional.of(cliente));
 		
 		Cliente result = buscarCliente.buscarPorId("123456789987654321");
+		
+		Mockito.verify(clienteRepository).findById("123456789987654321");
 		assertNotNull(result);
 		assertEquals(result.getCpf(), cliente.getCpf());
 		assertEquals(result.getEmail(), cliente.getEmail());
 		assertEquals(result.getNome(), cliente.getNome());
+	}
+	
+	@Test
+	@DisplayName("Deve lançar EntityNotFoundException quando não encontrado por id")
+	void erroAoBbuscarPorId() {
+		
+		when(clienteRepository.findById(idNaoExiste))
+			.thenReturn(Optional.empty());
+		
+		EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
+			buscarCliente.buscarPorId(idNaoExiste);
+		}, "Deve lançar exceção");
+		
+		String msg = "Cliente was not found for parameters " + "{id="+ idNaoExiste+"}";
+		
+		assertEquals(msg, exception.getMessage());
+	}
+	
+	@Test
+	@DisplayName("Deve retornar true")
+	void deveRetornarTrue() {
+		when(clienteRepository.findById(cliente.getId()))
+			.thenReturn(Optional.of(cliente));
+		
+		Boolean result = buscarCliente.isCadastrado(cliente.getId());
+		
+		Mockito.verify(clienteRepository).findById("123456789987654321");
+		assertTrue(result);
+	}
+	
+	
+	@Test
+	@DisplayName("Deve retornar false")
+	void deveRetornarFalse() {
+		when(clienteRepository.findById(cliente.getId()))
+			.thenReturn(Optional.empty());
+		
+		Boolean result = buscarCliente.isCadastrado(cliente.getId());
+		
+		assertFalse(result);
 	}
 }
