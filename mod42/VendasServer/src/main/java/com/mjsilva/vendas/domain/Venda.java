@@ -104,7 +104,7 @@ public class Venda {
 		}
 	}
 
-	private void recalcularValorTotalVenda() {
+	public void recalcularValorTotalVenda() {
 		BigDecimal valorTotal = BigDecimal.ZERO;
 		for(ProdutoQuantidade prodQtd: this.produtos) {
 			valorTotal = valorTotal.add(prodQtd.getValorTotal());
