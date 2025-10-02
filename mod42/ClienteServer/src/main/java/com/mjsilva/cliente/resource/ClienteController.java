@@ -55,6 +55,12 @@ public class ClienteController {
 		return ResponseEntity.ok(buscarCliente.buscarPorCpf(cpf));
 	}
 	
+	@GetMapping(value = "/isCadastrado/{id}")
+	@Operation(summary = "Verifica se cliente existe")
+	public ResponseEntity<Boolean> isCadastrado(@PathVariable(value = "id", required = true) String id){
+		return ResponseEntity.ok(buscarCliente.isCadastrado(id));
+	}
+	
 	@PostMapping
 	@Operation(summary = "Cadastra cliente")
 	public ResponseEntity<Cliente> cadastrar(@RequestBody @Valid Cliente cliente){

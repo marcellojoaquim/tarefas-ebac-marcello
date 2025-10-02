@@ -20,7 +20,7 @@ import jakarta.validation.Valid;
 @Service
 public class CadastroVenda {
 
-private IVendaRepository vendaRepository;
+	private IVendaRepository vendaRepository;
 	
 	private IProdutoService produtoService;
 	
