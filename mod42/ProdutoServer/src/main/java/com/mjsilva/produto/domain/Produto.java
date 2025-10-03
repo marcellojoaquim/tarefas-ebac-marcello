@@ -22,7 +22,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Schema(name = "Cliente", description = "cliente")
+@Schema(name = "Produto", description = "produto")
 public class Produto {
 	
 	public enum Status{
