@@ -17,7 +17,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
-@Document
+@Document(collection = "venda")
 @Getter
 @Setter
 @AllArgsConstructor

@@ -27,7 +27,7 @@ public class ProdutoQuantidade {
 		this.valorTotal = BigDecimal.ZERO;
 	}
 	
-	public void adicionar(Integer qantidade) {
+	public void adicionar(Integer quantidade) {
 		this.quantidade += quantidade;
 		BigDecimal novoValor = this.produto.getValor().multiply(BigDecimal.valueOf(quantidade));
 		BigDecimal novoTotal = this.valorTotal.add(novoValor);

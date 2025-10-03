@@ -24,7 +24,7 @@ public class BuscarProduto {
 		return produtoRepository.findAll(pageable);
 	}
 	
-	public Page<Produto> buscar(Pageable pageable, Status status){
+	public Page<Produto> buscarPorStatus(Pageable pageable, Status status){
 		return produtoRepository.findAllByStatus(pageable, status);
 	}
 	
@@ -33,7 +33,7 @@ public class BuscarProduto {
 				.orElseThrow(() -> new EntityNotFoundException(Produto.class, "codigo", codigo));
 	}
 	
-	public Produto buscarProId(String id) {
+	public Produto buscarPorId(String id) {
 		return produtoRepository.findById(id)
 				.orElseThrow(()-> new EntityNotFoundException(Produto.class, "id", id));
 	}

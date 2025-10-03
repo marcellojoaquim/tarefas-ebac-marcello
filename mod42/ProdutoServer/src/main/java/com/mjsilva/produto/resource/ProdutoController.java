@@ -50,14 +50,14 @@ public class ProdutoController {
 	@GetMapping(value = "/{id}")
 	@Operation(summary = "Buscar por Id")
 	public ResponseEntity<Produto> buscarPorId(@PathVariable(value = "id", required = true) String id){
-		return ResponseEntity.ok(buscarProduto.buscarProId(id));
+		return ResponseEntity.ok(buscarProduto.buscarPorId(id));
 	}
 	
 	@GetMapping(value = "/status")
 	@Operation(summary = "Buscar por status")
 	public ResponseEntity<Page<Produto>> buscarPorStatus(@RequestParam(value = "status", required = true) Status status, 
 			@Parameter(description = "Objeto de paginacao") Pageable pageable) {
-		return ResponseEntity.ok(buscarProduto.buscar(pageable, status));
+		return ResponseEntity.ok(buscarProduto.buscarPorStatus(pageable, status));
 	}
 	
 	@PostMapping

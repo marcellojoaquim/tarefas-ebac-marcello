@@ -3,7 +3,6 @@ package com.mjsilva.vendas.usecases;
 import java.math.BigDecimal;
 import java.util.HashSet;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mjsilva.vendas.domain.Produto;

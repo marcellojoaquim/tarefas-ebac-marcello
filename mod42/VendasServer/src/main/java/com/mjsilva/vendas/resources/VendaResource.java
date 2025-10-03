@@ -50,7 +50,8 @@ public class VendaResource {
 	}
 	
 	@PutMapping(value = "/{id}/{codigoProduto}/{quantidade}")
-	public ResponseEntity<Venda> adicionarProduto(@PathVariable(value = "id") String id, 
+	public ResponseEntity<Venda> adicionarProduto(
+			@PathVariable(value = "id", required = true) String id, 
 			@PathVariable(value = "codigoProduto") String codigoProduto, 
 			@PathVariable(value = "quantidade") Integer quantidade) {
 		return ResponseEntity.ok(cadastroVenda.adicionarProduto(id, codigoProduto, quantidade));
