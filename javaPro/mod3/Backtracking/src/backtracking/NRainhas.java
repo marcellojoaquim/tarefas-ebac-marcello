@@ -3,14 +3,15 @@ package backtracking;
 public class NRainhas {
 
     private static boolean temAtaque(int x, int y, int[][] tab){
-        for (int j =0; j < tab.length; j++){
-            if (tab[x][j] == 1) {
+
+        for (int i =0; i < tab.length; i++){
+            if (tab[i][y] == 1) {
                 return true;
             }
         }
 
-        for (int i =0; i < tab.length; i++){
-            if (tab[i][y] == 1) {
+        for (int j =0; j < tab.length; j++){
+            if (tab[x][j] == 1) {
                 return true;
             }
         }
