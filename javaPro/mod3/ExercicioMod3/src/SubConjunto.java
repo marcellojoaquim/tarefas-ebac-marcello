@@ -8,7 +8,8 @@ public class SubConjunto {
     private static void combinar(
             int inicio, int n,
             List<Integer> temp,
-            List<List<Integer>> result) {
+            List<List<Integer>> result)
+    {
         if (temp.size() == n) {
             result.add(new ArrayList<>(temp));
             return;
