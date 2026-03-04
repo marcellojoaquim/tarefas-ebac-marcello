@@ -1,0 +1,19 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: animal-service
+  datasource:
+    url: jdbc:h2:mem:db-animals
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+# spring:datasource:url: jdbc:h2:file:/ebac/animals

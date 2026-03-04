@@ -1,4 +1,4 @@
-# AdotePet
+# Animal Service
 
 ## Descrição
 <p>Sistema de cadastro de animais resgatados e que estão disponíveis para adoção.</p>
