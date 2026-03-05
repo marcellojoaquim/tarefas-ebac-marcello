@@ -39,6 +39,9 @@ public class Animal {
     @Column(nullable = false)
     private String porte;
 
+    @Column(nullable = false)
+    private String especie;
+
     public Integer getId() {
         return id;
     }
@@ -113,5 +116,13 @@ public class Animal {
 
     public void setIdadeEstimada(Integer idadeEstimada) {
         this.idadeEstimada = idadeEstimada;
+    }
+
+    public String getEspecie() {
+        return especie;
+    }
+
+    public void setEspecie(String especie) {
+        this.especie = especie;
     }
 }

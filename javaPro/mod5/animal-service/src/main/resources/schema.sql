@@ -11,3 +11,6 @@ CREATE TABLE animal (
   porte VARCHAR(255) NOT NULL,
   CONSTRAINT pk_animal PRIMARY KEY (id)
 );
+
+ALTER TABLE animal
+ADD especie VARCHAR(255) NOT NULL;
