@@ -43,4 +43,9 @@ public class AnimalController {
     private List<Animal> findDied() {
         return repository.findDied();
     }
+
+    @GetMapping("/specie/{especie}")
+    private List<Animal> findByEspecie(@PathVariable String especie) {
+        return repository.findByEspecie(especie);
+    }
 }
