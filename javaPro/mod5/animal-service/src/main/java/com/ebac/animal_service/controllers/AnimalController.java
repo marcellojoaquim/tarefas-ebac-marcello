@@ -28,4 +28,19 @@ public class AnimalController {
     private Animal create(@RequestBody Animal animal) {
         return repository.save(animal);
     }
+
+    @GetMapping("/not-adopted")
+    private List<Animal> findNotAdopted() {
+        return repository.findNotAdopted();
+    }
+
+    @GetMapping("/adopted")
+    private List<Animal> findAdopted() {
+        return repository.findAdopted();
+    }
+
+    @GetMapping("/died")
+    private List<Animal> findDied() {
+        return repository.findDied();
+    }
 }
