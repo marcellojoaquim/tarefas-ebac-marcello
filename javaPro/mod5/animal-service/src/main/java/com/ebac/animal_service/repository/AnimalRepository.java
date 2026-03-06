@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -22,4 +23,9 @@ public interface AnimalRepository extends JpaRepository<Animal, Integer> {
 
     @Query("SELECT a FROM Animal a WHERE LOWER(a.especie) = LOWER(:especie) ")
     List<Animal> findByEspecie(@Param("especie") String especie);
+
+    @Query("SELECT COUNT(a) FROM Animal a WHERE LOWER(a.nomeRecebedor) = LOWER(:nomeRecebedor) AND a.dataEntrada BETWEEN :inicio AND :fim")
+    Integer countAnimalsBetweenDate(@Param("nomeRecebedor") String nomeRecebedor,
+                                                 @Param("inicio")LocalDate inicio,
+                                                 @Param("fim") LocalDate fim);
 }

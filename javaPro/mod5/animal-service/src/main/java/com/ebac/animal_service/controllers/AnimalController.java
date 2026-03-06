@@ -1,10 +1,13 @@
 package com.ebac.animal_service.controllers;
 
+import com.ebac.animal_service.dto.QtdAnimaisResgatados;
 import com.ebac.animal_service.entities.Animal;
 import com.ebac.animal_service.repository.AnimalRepository;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -47,5 +50,13 @@ public class AnimalController {
     @GetMapping("/specie/{especie}")
     private List<Animal> findByEspecie(@PathVariable String especie) {
         return repository.findByEspecie(especie);
+    }
+
+    @GetMapping("/recebedor/{nomeRecebedor}")
+    private QtdAnimaisResgatados countAnimalsByRecebedor(@PathVariable("nomeRecebedor") String nomeRecebedor,
+                                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate inicio,
+                                                         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate fim)
+    {
+        return new QtdAnimaisResgatados(repository.countAnimalsBetweenDate(nomeRecebedor, inicio, fim));
     }
 }
