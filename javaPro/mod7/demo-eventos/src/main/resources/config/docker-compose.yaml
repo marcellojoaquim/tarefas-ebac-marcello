@@ -1,0 +1,8 @@
+services:
+  kafka:
+    image: apache/kafka:3.7.0
+    container_name: kafka-kraft
+    ports:
+      - "9092:9092"      # Porta principal
+    environment:
+      - ALLOW_PLAINTEXT_LISTENER=yes
