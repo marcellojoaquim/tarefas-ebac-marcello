@@ -15,6 +15,7 @@ public class ServicoKafka {
     private String nomeTopico;
 
     public void enviarMensagem(String mensagem) {
+        System.out.println("=========== ENVIANDO MENSAGEM =========");
         kafkaTemplate.send(nomeTopico, mensagem);
     }
 }
