@@ -1,0 +1,12 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: ebac-toggle-client
+  config:
+    import: optional:configserver:http://localhost:8088/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

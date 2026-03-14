@@ -1,0 +1,12 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: toggle-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: ${HOME}/cursos/EBAC/ebac-toggle-config-server-repo
+          default-label: main
+          clone-on-start: true
