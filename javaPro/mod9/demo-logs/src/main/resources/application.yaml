@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: ebac-logs
+#Spring Actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+#Logs
+logging:
+  pattern:
+    level: "%5p[${spring.application.name:},%X{traceId},%X{spanId}]"
