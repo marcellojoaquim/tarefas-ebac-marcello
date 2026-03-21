@@ -1,0 +1,15 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: HelloWorld
+  cloud:
+    zookeeper:
+      discovery:
+        enabled: true
+logging:
+  level:
+    org:
+      apache:
+        zookeeper:
+          ClientCnxn: WARN
