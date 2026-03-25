@@ -5,11 +5,13 @@ spring:
     name: gateway-api
   cloud:
     gateway:
-      routes:
-        - id: google
-          uri: https://google.com
-          predicates:
-            - Path=/search**
+      server:
+        webflux:
+          routes:
+            - id: google
+              uri: https://google.com
+              predicates:
+                - Path=/search**
 management:
   endpoints:
     web:
@@ -17,4 +19,4 @@ management:
         include: "*"
   endpoint:
     gateway:
-      enabled: true
+      access: unrestricted
