@@ -5,5 +5,5 @@ spring:
     name: demo-mongodb
   data:
     mongodb:
-      uri: "mongodb+srv://marcellojoaquim:y4PORqxXzS95WgOO@clusterebac.augbryg.mongodb.net/?appName=ClusterEbac"
+      uri: "mongodb+srv://${MONGO_USER}:${MONGO_PASS}@clusterebac.augbryg.mongodb.net/?appName=ClusterEbac"
       database: ebac
