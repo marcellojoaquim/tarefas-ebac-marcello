@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: demo-mongodb
+  data:
+    mongodb:
+      uri: "mongodb+srv://marcellojoaquim:y4PORqxXzS95WgOO@clusterebac.augbryg.mongodb.net/?appName=ClusterEbac"
+      database: ebac
